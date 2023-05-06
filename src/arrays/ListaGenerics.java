@@ -5,17 +5,22 @@ import java.lang.reflect.Array;
 // Generics = <T>
 public class ListaGenerics<T> {
 
-    private T[] elementos;
-    private int tamanho;
+    protected T[] elementos;
+    protected int tamanho;
 
     public ListaGenerics(int capacidade, Class<T> tipoClass) {
         this.elementos = (T[]) Array.newInstance(tipoClass, capacidade);
         this.tamanho = 0;
     }
 
+    //Melhor forma
     public ListaGenerics(int capacidade) {
         this.elementos = (T[]) new Object[capacidade];
         this.tamanho = 0;
+    }
+
+    public ListaGenerics() {
+        this(10);
     }
 
     public boolean adiciona(T elemento) {
@@ -45,7 +50,7 @@ public class ListaGenerics<T> {
         return true;
     }
 
-    private void aumentaCapacidade() {
+    protected void aumentaCapacidade() {
         if (this.tamanho == this.elementos.length) {
             T[] elementosNovos = (T[]) new Object[this.elementos.length * 2];
             for (int i = 0; i < this.elementos.length; i++) {
@@ -83,6 +88,11 @@ public class ListaGenerics<T> {
 
     public int tamanho() {
         return this.tamanho;
+    }
+
+    public boolean estaVazia() {
+        if (this.tamanho == 0) {return true;}
+        else {return false;}
     }
 
     @Override
